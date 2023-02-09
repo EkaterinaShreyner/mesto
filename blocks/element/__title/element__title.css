@@ -1,0 +1,12 @@
+.element__title {
+  /* width: 282px; */
+  height: 79px;
+  color: black;
+  padding: 25px 15px 31px 0;
+  padding: auto 0;
+  box-sizing: border-box;
+  margin: 0;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}

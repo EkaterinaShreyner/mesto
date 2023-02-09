@@ -1,0 +1,12 @@
+.profile__info {
+  display: flex;
+  flex-direction: column;
+  /* grid-template-columns: 1fr 24px; */
+  row-gap: 16px;
+}
+
+@media screen and (max-width: 645px) {
+  .profile__info {
+    row-gap: 14px;
+  }
+}

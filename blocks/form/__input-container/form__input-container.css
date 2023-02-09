@@ -1,0 +1,12 @@
+.form__input-container {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  width: 358px;
+  margin: 48px auto 37px;
+  border: 0;
+}
+
+.form__input-container:not(:first-of-type) {
+  margin-top: 48px;
+}
