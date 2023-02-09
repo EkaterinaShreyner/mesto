@@ -11,6 +11,11 @@
   position: absolute;
   right: 0;
   top: 35px;
+  transition: opacity 0.5s linear;
+}
+
+.profile__add-button:hover {
+  opacity: 0.6;
 }
 
 @media screen and (max-width: 990px) {

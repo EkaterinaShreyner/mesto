@@ -1,0 +1,11 @@
+.element__like {
+  transition: opacity 0.5s linear;
+}
+
+.element__like:hover {
+  opacity: 0.5;
+}
+
+.element__like_active {
+  background-image: url(../../../image/likeActive.svg);
+}

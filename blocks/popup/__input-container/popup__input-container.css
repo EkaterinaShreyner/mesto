@@ -1,0 +1,19 @@
+.popup__input-container {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  width: 358px;
+  margin: 42px 36px 0;
+  border: 0;
+}
+
+.popup__input-container:not(:first-of-type) {
+  margin-top: 42px;
+}
+
+@media screen and (max-width: 645px) {
+  .popup__input-container {
+    width: 238px;
+    margin: 70px 22px 0;
+  }
+}
