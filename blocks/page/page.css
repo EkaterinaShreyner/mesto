@@ -1,9 +1,9 @@
 .page {
   /* width: 100%; */
   max-width: 1280px;
-  font-family: 'Inter', sans-serif;
+  font-family: "Inter", sans-serif;
   background-color: #000000;
-  color: #FFFFFF;
+  color: #ffffff;
   margin: auto;
   position: relative;
   z-index: 0;
