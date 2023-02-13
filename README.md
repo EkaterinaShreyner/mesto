@@ -15,4 +15,4 @@
   
 **GitHub Pages**  
     
-* [Ссылка на GitHub Pages]()
+* [Ссылка на GitHub Pages](https://ekaterinashreyner.github.io/mesto/index.html)
