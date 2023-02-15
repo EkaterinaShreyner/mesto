@@ -4,21 +4,21 @@ const popupButtonClose = document.querySelector('.popup__button-close');
 
 
 profileEditButton.addEventListener ('click', function() {
-  // popupEdit.classList.add('popup_popup_opened');
+  // popupEdit.classList.add('popup_opened');
   openPopup(popupEdit);
 });
 
 popupButtonClose.addEventListener ('click', function() {
-  // popupEdit.classList.remove('popup_popup_opened');
+  // popupEdit.classList.remove('popup_opened');
   closePopup(popupEdit);
 });
 
 function openPopup(popup) {
-  popup.classList.add('popup_popup_opened');  
+  popup.classList.add('popup_opened');  
 };
 
 function closePopup(popup) {
-  popup.classList.remove('popup_popup_opened');
+  popup.classList.remove('popup_opened');
   popupInput.value = userNameTitle.textContent;
   popupInputInfo.value = userProfileSubtitle.textContent; 
 };
