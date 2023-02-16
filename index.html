@@ -15,24 +15,23 @@
         src="./image/Vector.svg"
         alt="Логотип"
       >
-      <!-- <div class="header__line"></div> -->
     </header>
     <main class="content">
-      <div class="profile">
+      <section class="profile">
         <img
           class="profile__avatar"
-          src="./image/ava3.png"
+          src="./image/ava.png"
           alt="Фото Лувр"
         >
         <div class="profile__info">
           <div class="profile__header">
-            <p class="profile__title"></p>
+            <h1 class="profile__title">Шрейнер Екатерина</h1>
             <button class="profile__edit-button" type="button" aria-label="Редактировать профиль"></button>
           </div>
-          <p class="profile__subtitle"></p>
+          <p class="profile__subtitle">люблю искусство</p>
         </div>
         <button class="profile__add-button" type="button" aria-label="Добавить место"></button>
-      </div>
+      </section>
       <section class="elements">
         <div class="element">
           <img
@@ -106,23 +105,25 @@
       <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
     </footer>
     <section class="popup">
-      <form class="popup__container">
-        <h2 class="popup__title">Редактировать профиль</h2>
-        <input
-          class="popup__input"
+      <div class="popup__container">
+        <button class="popup__button-close" type="button" aria-label="Закрыть окно"></button>
+        <form class="popup__form" name="form_profile">
+          <h2 class="popup__title">Редактировать профиль</h2>
+          <input
+          class="popup__input popup__input_type_name"
           name="name"
           type="text"
           placeholder="Имя"
-        >
-        <input
-          class="popup__input popup__input_info"
+          >
+          <input
+          class="popup__input popup__input_type_info"
           name="info"
           type="text"
           placeholder="О себе"
-        >
-        <button class="popup__button" type="submit" aria-label="Сохранить">Сохранить</button>
-        <button class="popup__button-close" type="button" aria-label="Закрыть окно"></button>
-      </form>
+          >
+          <button class="popup__button" type="submit" aria-label="Сохранить">Сохранить</button>
+        </form>
+      </div>
     </section>
   </body>
 </html>

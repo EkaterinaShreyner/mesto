@@ -1,7 +1,8 @@
 const profileEditButton = document.querySelector('.profile__edit-button');
 const popupEdit = document.querySelector('.popup');
 const popupButtonClose = document.querySelector('.popup__button-close');
-
+const userNameTitle = document.querySelector('.profile__title');
+const userProfileSubtitle = document.querySelector('.profile__subtitle');
 
 profileEditButton.addEventListener ('click', function() {
   // popupEdit.classList.add('popup_opened');
@@ -14,38 +15,29 @@ popupButtonClose.addEventListener ('click', function() {
 });
 
 function openPopup(popup) {
-  popup.classList.add('popup_opened');  
+  popup.classList.add('popup_opened');
+  popupInputUserName.value = userNameTitle.textContent;
+  popupInputUserInfo.value = userProfileSubtitle.textContent;
 };
 
 function closePopup(popup) {
   popup.classList.remove('popup_opened');
-  popupInput.value = userNameTitle.textContent;
-  popupInputInfo.value = userProfileSubtitle.textContent; 
 };
 
-let userName = 'Шрейнер Екатерина';
-let userInfo = 'люблю искусство';
+const popupInputUserName = document.querySelector('.popup__input_type_name');
+popupInputUserName.value = userNameTitle.textContent;
+const popupInputUserInfo = document.querySelector('.popup__input_type_info');
+popupInputUserInfo.textContent = userProfileSubtitle.textContent;
 
-const userNameTitle = document.querySelector('.profile__title');
-userNameTitle.textContent = userName;
-const userProfileSubtitle = document.querySelector('.profile__subtitle');
-userProfileSubtitle.textContent = userInfo;
-
-const popupInput = document.querySelector('.popup__input');
-popupInput.value = userName;
-const popupInputInfo = document.querySelector('.popup__input_info');
-popupInputInfo.value = userInfo;
-
-// const popupButtonSave = document.querySelector('.popup__button');
-const popupFormContainer = document.querySelector('.popup__container');
+const popupForm = document.querySelector('.popup__form');
 function handleFormSubmit (event) {
   event.preventDefault();
   console.log('Форма сохранена');
-  userNameTitle.textContent = popupInput.value;
-  userProfileSubtitle.textContent = popupInputInfo.value;
+  userNameTitle.textContent = popupInputUserName.value;
+  userProfileSubtitle.textContent = popupInputUserInfo.value;
   closePopup(popupEdit);
 };
-popupFormContainer.addEventListener('submit', handleFormSubmit);
+popupForm.addEventListener('submit', handleFormSubmit);
 
 // popupInput.addEventListener('input', function (event) {
 //   const value = event.target.value;
