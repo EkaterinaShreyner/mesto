@@ -1,0 +1,8 @@
+.popup_image {
+  visibility: visible;
+  transition: background-color 1.5s linear;
+}
+
+.popup_image:hover {
+  background-color: rgba(0, 0, 0, 0.9);
+}

@@ -32,7 +32,19 @@
         </div>
         <button class="profile__add-button" type="button" aria-label="Добавить место"></button>
       </section>
-      <section class="elements">
+      <div class="elements">
+        <template class="cards">
+          <div class="element">
+            <button class="element__card-delete" type="button" aria-label="Удалить"></button>
+            <img class="element__image">
+            <div class="element__line">
+              <h2 class="element__title"></h2>
+              <button class="element__like" type="button" aria-label="Нравится"></button>
+            </div>
+          </div>
+        </template>
+      </div>
+      <!-- <section class="elements">
         <div class="element">
           <img
             class="element__image"
@@ -99,7 +111,7 @@
             <button class="element__like element__like_action" type="button" aria-label="Нравится"></button>
           </div>
         </div>
-      </section>
+      </section> -->
     </main>
     <footer class="footer">
       <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
@@ -123,6 +135,34 @@
           >
           <button class="popup__button" type="submit" aria-label="Сохранить">Сохранить</button>
         </form>
+      </div>
+    </section>
+    <section class="popup popup_cards">
+      <div class="popup__container">
+        <button class="popup__button-close" type="button" aria-label="Закрыть окно"></button>
+        <form class="popup__form popup__form_card_add" name="form_profile">
+          <h2 class="popup__title">Новое место</h2>
+          <input
+          class="popup__input popup__input_card_name"
+          name="title"
+          type="text"
+          placeholder="Название"
+          >
+          <input
+          class="popup__input popup__input_card_link"
+          name="link"
+          type="text"
+          placeholder="Ссылка на картинку"
+          >
+          <button class="popup__button" type="submit" aria-label="Сохранить">Создать</button>
+        </form>
+      </div>
+    </section>
+    <section class="popup popup_image">
+      <div class="popup__container">
+        <button class="popup__button-close" type="button" aria-label="Закрыть окно"></button>
+        <img class="popup__image-full">
+        <h2 class="popup__title popup__title_image-full"></h2>
       </div>
     </section>
   </body>
