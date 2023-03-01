@@ -11,7 +11,7 @@
   border: 0;
   transition: opacity 0.5s linear;
 }
+
 .element__card-delete:hover {
   opacity: 0.6;
 }
-
