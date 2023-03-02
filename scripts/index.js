@@ -18,10 +18,10 @@ const cardsTemplate = document.querySelector('.cards').content;
 // для отправки формы 1
 const popupInputUserName = document.querySelector('.popup__input_type_name');
 const popupInputUserInfo = document.querySelector('.popup__input_type_info');
-const popupForm = document.querySelector('.popup__form');
+const popupFormEditProfile = document.forms['form-edit-profile'];
 // для рендеринга карточек
 const elements = document.querySelector('.elements');
-const popupFormCard = document.querySelector('.popup__form_card_add');
+const popupFormCard = document.forms['form-cards'];
 const popupInputCardName = popupFormCard.querySelector('.popup__input_card_name');
 const popupInputCardLink = popupFormCard.querySelector('.popup__input_card_link');
 
@@ -44,7 +44,7 @@ function createCards(name, link) {
   cardImage.setAttribute('alt', name);
 
   const likeButtonElement = cardsTemplateClone.querySelector('.element__like');
-  likeButtonElement.addEventListener('click', handlelikeButton);
+  likeButtonElement.addEventListener('click', handleLikeButton);
   
   const cardButtonDelete = cardsTemplateClone.querySelector('.element__card-delete');
   cardButtonDelete.addEventListener('click', handleDeleteCard);
@@ -63,8 +63,7 @@ initialCards.forEach(function(card) {
 });
 
 // ФУНКЦИЯ ОТПРАВКА ФОРМЫ 1
-popupForm.addEventListener('submit', handleFormSubmit);
-function handleFormSubmit (event) {
+function submitEditProfileForm (event) {
   event.preventDefault();
   userNameTitle.textContent = popupInputUserName.value;
   userProfileSubtitle.textContent = popupInputUserInfo.value;
@@ -72,7 +71,7 @@ function handleFormSubmit (event) {
 };
 
 // ФУНКЦИЯ ОБРАБОТЧИК ЛАЙКА
-function handlelikeButton(evt) {
+function handleLikeButton(evt) {
   const buttonLikeTarget = evt.target;
   buttonLikeTarget.classList.toggle('element__like_active');
 };
@@ -96,6 +95,7 @@ function handleFormSubmitCard(evt) {
   evt.target.reset();
 };
 
+popupFormEditProfile.addEventListener('submit', submitEditProfileForm);
 popupFormCard.addEventListener('submit', handleFormSubmitCard);
 
 // ПОПАП 1
