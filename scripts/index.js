@@ -83,7 +83,7 @@ function handleDeleteCard(evt) {
 };
 
 // ФУНКЦИЯ СОЗДАНИЯ НОВОЙ КАРТОЧКИ
-function handleFormSubmitCard(evt) {
+function submitCardsForm(evt) {
   evt.preventDefault();
   const newCard = {
     name: popupInputCardName.value,
@@ -96,7 +96,7 @@ function handleFormSubmitCard(evt) {
 };
 
 popupFormEditProfile.addEventListener('submit', submitEditProfileForm);
-popupFormCard.addEventListener('submit', handleFormSubmitCard);
+popupFormCard.addEventListener('submit', submitCardsForm);
 
 // ПОПАП 1
 profileEditButton.addEventListener ('click', function() {
