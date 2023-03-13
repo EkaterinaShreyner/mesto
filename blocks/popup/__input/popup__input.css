@@ -10,6 +10,7 @@
   font-size: 14px;
   line-height: 17px;
   color: #000000;
+  /* position: relative; */
 }
 
 .popup__input:first-of-type {

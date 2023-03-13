@@ -123,3 +123,71 @@ popupButtonCardsClose.addEventListener ('click', function() {
 popupButtonImageClose.addEventListener('click', function() {
   closePopup(popupImage);
 });
+
+
+
+// const popupForms = document.querySelector('.popup__form');
+// const popupInputs = popupForms.querySelector('.popup__input');
+// const textError = popupFormCard.querySelector('.popup__input-error');
+
+// ФУКНЦИЯ ПОКАЗА ОШИБКИ В ПОЛЕ ВВОДА
+function showInputError(formElement, input, errorMessage) {
+  // const errorElement = formElement.querySelector(`.${input.id}-error`);
+  const errorElement = formElement.querySelector('.popup__input-error');
+  input.classList.add('popup__input_type_error');
+  errorElement.textContent = errorMessage;
+  errorElement.classList.add('popup__input-error_active');
+}
+// ФУКЦИЯ СКРЫТИЯ ОШИБКИ В ПОЛЕ ВВОДА
+function hideInputError(formElement, input) {
+  const errorElement = formElement.querySelector('.popup__input-error');
+  // const errorElement = formElement.querySelector(`.${input.id}-error`);
+  input.classList.remove('popup__input_type_error');
+  errorElement.classList.remove('popup__input-error_active');
+  errorElement.textContent = '';
+}
+// ВАЛИДАЦИЯ 1ГО ПОЛЯ ВВОДА
+function checkInputValid(formElement, input) {
+  if (!(input.validity.valid)) {
+    showInputError(formElement, input, input.validationMessage);
+  } else {
+    hideInputError(formElement, input);
+  }
+}
+// popupInputs.addEventListener('input', function() {
+//   checkInputValid(popupForms, popupInputs);
+// });
+
+// ВАЛИДАЦИЯ ВСЕХ ПОЛЕЙ ВВОДА
+function setEventListener(formElement) {
+  const inputList = Array.from(formElement.querySelectorAll('.popup__input'));
+  inputList.forEach(function(input) {
+    input.addEventListener('input', function() {
+      checkInputValid(formElement, input);
+    });
+  });
+}
+// setEventListener(popupForms);
+
+// ВАЛИДАЦИЯ ВСЕХ ФОРМ
+function enableValidation() {
+  const formList = Array.from(document.querySelectorAll('.popup__form'));
+  formList.forEach(function(formElement) {
+    // formElement.addEventListener('submit', function(evt) {
+    //   evt.preventDefault();
+    // });
+    setEventListener(formElement);
+  });
+}
+enableValidation();
+
+// ФУНКЦИЯ БЛОКИРОВКИ КНОПКИ SUBMIT
+function toggleButtonState(inputList, buttonElement) {
+  if (input.validity.valid) {
+    buttonElement.classList.add('.popup__button_disabled');
+  } else {
+    buttonElement.classList.remove('.popup__button_disabled');
+    buttonElement.setAttribute('disabled');
+  }
+}
+
