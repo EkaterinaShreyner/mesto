@@ -25,14 +25,34 @@ const popupFormCard = document.forms['form-cards'];
 const popupInputCardName = popupFormCard.querySelector('.popup__input_card_name');
 const popupInputCardLink = popupFormCard.querySelector('.popup__input_card_link');
 
+// const testpopup = document.getElementById('test');
+const popupList = document.querySelectorAll('.popup');
+
+// ФУНКЦИЯ ЗАКРЫТИЯ ПОПАП ПРИ ПОМОЩИ ESCAPE
+// const popupList = Array.from(document.querySelectorAll('.popup'));
+// popupList.forEach(function(document) {
+//   document.addEventListener('keydown', closeByEsc);
+// });
+
+function closeByEsc(evt) {
+  if (evt.key === 'Escape') {
+    const popupOpened = document.querySelector('.popup_opened')
+    closePopup(popupOpened);
+  }
+}
+
 // ФУНКЦИЯ ОТКРЫТИЯ ПОПАПОВ
 function openPopup(popup) {
   popup.classList.add('popup_opened');
-};
+  document.addEventListener('keydown', closeByEsc);
+}
 // ФУНКЦИЯ ЗАКРЫТИЯ ПОПАПОВ
 function closePopup(popup) {
   popup.classList.remove('popup_opened');
-};
+  document.removeEventListener('keydown', closeByEsc);
+}
+
+
 
 // ФУКНЦИЯ РЕНДЕРИНГ КАРТОЧЕК
 function createCards(name, link) {
@@ -146,7 +166,7 @@ function hideInputError(formElement, input) {
   errorElement.classList.remove('popup__input-error_active');
   errorElement.textContent = '';
 }
-// ВАЛИДАЦИЯ 1ГО ПОЛЯ ВВОДА
+// ВАЛИДАЦИЯ ОДНОГО ПОЛЯ ВВОДА
 function checkInputValid(formElement, input) {
   if (!(input.validity.valid)) {
     showInputError(formElement, input, input.validationMessage);
@@ -161,9 +181,12 @@ function checkInputValid(formElement, input) {
 // ВАЛИДАЦИЯ ВСЕХ ПОЛЕЙ ВВОДА
 function setEventListener(formElement) {
   const inputList = Array.from(formElement.querySelectorAll('.popup__input'));
+  // const buttonSubmit = formElement.querySelectorAll('.popup__button');
+  // toggleButtonState(inputList, buttonSubmit);
   inputList.forEach(function(input) {
     input.addEventListener('input', function() {
       checkInputValid(formElement, input);
+      // toggleButtonState(inputList, buttonSubmit);
     });
   });
 }
@@ -181,13 +204,19 @@ function enableValidation() {
 }
 enableValidation();
 
-// ФУНКЦИЯ БЛОКИРОВКИ КНОПКИ SUBMIT
-function toggleButtonState(inputList, buttonElement) {
-  if (input.validity.valid) {
-    buttonElement.classList.add('.popup__button_disabled');
-  } else {
-    buttonElement.classList.remove('.popup__button_disabled');
-    buttonElement.setAttribute('disabled');
-  }
+// ФУНКЦИЯ ПРОВЕРКА НА ХОТЯ БЫ 1 ПОЛЕ ВВОДА 
+function hasInputInvalid(inputList) {
+  return inputList.some(function(input) {
+    return !input.validity.valid;
+  });
 }
+
+// ФУНКЦИЯ БЛОКИРОВКИ КНОПКИ SUBMIT
+// function toggleButtonState(inputList, buttonSubmit) {
+//   if (hasInputInvalid(inputList)) {
+//     buttonSubmit.classList.add('popup__button_disabled');
+//   } else {
+//     buttonSubmit.classList.remove('popup__button_disabled');
+//   }
+// }
 

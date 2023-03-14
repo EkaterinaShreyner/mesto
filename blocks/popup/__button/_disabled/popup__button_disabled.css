@@ -1,3 +1,4 @@
 .popup__button_disabled {
-  
+  /* backface-visibility: visible; */
+  background: red;
 }
