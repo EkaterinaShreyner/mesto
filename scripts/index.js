@@ -130,6 +130,8 @@ popupButtonCloseProfile.addEventListener ('click', function() {
 popupButtonCards.addEventListener('click', function() {
   openPopup(popupCards);
   popupFormCard.reset();
+  const buttonSubmit = document.querySelector('.popup__button');
+  buttonSubmit.setAttribute('disabled', true);
 });
 popupButtonCardsClose.addEventListener ('click', function() {
   closePopup(popupCards);
@@ -139,90 +141,3 @@ popupButtonCardsClose.addEventListener ('click', function() {
 popupButtonImageClose.addEventListener('click', function() {
   closePopup(popupImage);
 });
-
-
-
-// const popupForms = document.querySelector('.popup__form');
-// const popupInputs = popupForms.querySelector('.popup__input');
-// const textError = popupFormCard.querySelector('.popup__input-error');
-
-// ФУКНЦИЯ ПОКАЗА ОШИБКИ В ПОЛЕ ВВОДА
-function showInputError(formElement, input, errorMessage) {
-  // const errorElement = formElement.querySelector(`.${input.id}-error`);
-  const errorElement = formElement.querySelector('.popup__input-error');
-  input.classList.add('popup__input_type_error');
-  errorElement.textContent = errorMessage;
-  errorElement.classList.add('popup__input-error_active');
-}
-// ФУКЦИЯ СКРЫТИЯ ОШИБКИ В ПОЛЕ ВВОДА
-function hideInputError(formElement, input) {
-  const errorElement = formElement.querySelector('.popup__input-error');
-  // const errorElement = formElement.querySelector(`.${input.id}-error`);
-  input.classList.remove('popup__input_type_error');
-  errorElement.classList.remove('popup__input-error_active');
-  errorElement.textContent = '';
-}
-// ВАЛИДАЦИЯ ОДНОГО ПОЛЯ ВВОДА
-function checkInputValid(formElement, input) {
-  if (!(input.validity.valid)) {
-    showInputError(formElement, input, input.validationMessage);
-  } else {
-    hideInputError(formElement, input);
-  }
-}
-// popupInputs.addEventListener('input', function() {
-//   checkInputValid(popupForms, popupInputs);
-// });
-
-// ВАЛИДАЦИЯ ВСЕХ ПОЛЕЙ ВВОДА
-function setEventListener(formElement) {
-  const inputList = Array.from(formElement.querySelectorAll('.popup__input'));
-  // const buttonSubmit = formElement.querySelectorAll('.popup__button');
-  // toggleButtonState(inputList, buttonSubmit);
-  inputList.forEach(function(input) {
-    input.addEventListener('input', function() {
-      checkInputValid(formElement, input);
-      // toggleButtonState(inputList, buttonSubmit);
-    });
-  });
-}
-// setEventListener(popupForms);
-
-// ВАЛИДАЦИЯ ВСЕХ ФОРМ
-function enableValidation() {
-  const formList = Array.from(document.querySelectorAll('.popup__form'));
-  formList.forEach(function(formElement) {
-    // formElement.addEventListener('submit', function(evt) {
-    //   evt.preventDefault();
-    // });
-    setEventListener(formElement);
-  });
-}
-enableValidation();
-
-// ФУНКЦИЯ ПРОВЕРКА НА ХОТЯ БЫ 1 ПОЛЕ ВВОДА 
-function hasInputInvalid(inputList) {
-  return inputList.some(function(input) {
-    return !input.validity.valid;
-  });
-}
-
-// ФУНКЦИЯ БЛОКИРОВКИ КНОПКИ SUBMIT
-// function toggleButtonState(inputList, buttonSubmit) {
-//   if (hasInputInvalid(inputList)) {
-//     buttonSubmit.classList.add('popup__button_disabled');
-//   } else {
-//     buttonSubmit.classList.remove('popup__button_disabled');
-//   }
-// }
-
-
-
-
-// ФУНКЦИЯ ЗАКРЫТИЯ ПОПАП ПРИ ПОМОЩИ ESCAPE
-// function closeByEsc(evt) {
-//   if (evt.key === 'Escape') {
-//     const popupOpened = document.querySelector('.popup_opened')
-//     closePopup(popupOpened);
-//   }
-// }
