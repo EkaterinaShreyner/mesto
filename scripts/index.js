@@ -25,16 +25,12 @@ const popupFormCard = document.forms['form-cards'];
 const popupInputCardName = popupFormCard.querySelector('.popup__input_card_name');
 const popupInputCardLink = popupFormCard.querySelector('.popup__input_card_link');
 
-// const testpopup = document.getElementById('test');
-const popupList = document.querySelectorAll('.popup');
 
-// ФУНКЦИЯ ЗАКРЫТИЯ ПОПАП ПРИ ПОМОЩИ ESCAPE
-// const popupList = Array.from(document.querySelectorAll('.popup'));
-// popupList.forEach(function(document) {
-//   document.addEventListener('keydown', closeByEsc);
-// });
-
-function closeByEsc(evt) {
+// ФУНКЦИЯ ЗАКРЫТИЯ ПОПАП НA OVERLAY И КЛАВИШУ ESC
+function closeOverlayAndEsc(evt) {
+  if (evt.target.classList.contains('popup_opened')) {
+    evt.target.classList.remove('popup_opened');
+  }
   if (evt.key === 'Escape') {
     const popupOpened = document.querySelector('.popup_opened')
     closePopup(popupOpened);
@@ -44,15 +40,15 @@ function closeByEsc(evt) {
 // ФУНКЦИЯ ОТКРЫТИЯ ПОПАПОВ
 function openPopup(popup) {
   popup.classList.add('popup_opened');
-  document.addEventListener('keydown', closeByEsc);
+  document.addEventListener('keydown', closeOverlayAndEsc);
+  popup.addEventListener('click', closeOverlayAndEsc);
 }
 // ФУНКЦИЯ ЗАКРЫТИЯ ПОПАПОВ
 function closePopup(popup) {
   popup.classList.remove('popup_opened');
-  document.removeEventListener('keydown', closeByEsc);
+  document.removeEventListener('keydown', closeOverlayAndEsc);
+  popup.removeEventListener('click', closeOverlayAndEsc);
 }
-
-
 
 // ФУКНЦИЯ РЕНДЕРИНГ КАРТОЧЕК
 function createCards(name, link) {
@@ -220,3 +216,13 @@ function hasInputInvalid(inputList) {
 //   }
 // }
 
+
+
+
+// ФУНКЦИЯ ЗАКРЫТИЯ ПОПАП ПРИ ПОМОЩИ ESCAPE
+// function closeByEsc(evt) {
+//   if (evt.key === 'Escape') {
+//     const popupOpened = document.querySelector('.popup_opened')
+//     closePopup(popupOpened);
+//   }
+// }
