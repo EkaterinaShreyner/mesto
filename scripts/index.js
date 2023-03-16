@@ -25,11 +25,14 @@ const popupFormCard = document.forms['form-cards'];
 const popupInputCardName = popupFormCard.querySelector('.popup__input_card_name');
 const popupInputCardLink = popupFormCard.querySelector('.popup__input_card_link');
 
+const buttonSubmitCard = document.querySelector('.submit-button-card');
+
 
 // ФУНКЦИЯ ЗАКРЫТИЯ ПОПАП НA OVERLAY И КЛАВИШУ ESC
 function closeOverlayAndEsc(evt) {
   if (evt.target.classList.contains('popup_opened')) {
-    evt.target.classList.remove('popup_opened');
+    // evt.target.classList.remove('popup_opened');
+    closePopup(evt.target);
   }
   if (evt.key === 'Escape') {
     const popupOpened = document.querySelector('.popup_opened')
@@ -41,13 +44,13 @@ function closeOverlayAndEsc(evt) {
 function openPopup(popup) {
   popup.classList.add('popup_opened');
   document.addEventListener('keydown', closeOverlayAndEsc);
-  popup.addEventListener('click', closeOverlayAndEsc);
+  popup.addEventListener('mousedown', closeOverlayAndEsc);
 }
 // ФУНКЦИЯ ЗАКРЫТИЯ ПОПАПОВ
 function closePopup(popup) {
   popup.classList.remove('popup_opened');
   document.removeEventListener('keydown', closeOverlayAndEsc);
-  popup.removeEventListener('click', closeOverlayAndEsc);
+  popup.removeEventListener('mousedown', closeOverlayAndEsc);
 }
 
 // ФУКНЦИЯ РЕНДЕРИНГ КАРТОЧЕК
@@ -109,6 +112,9 @@ function submitCardsForm(evt) {
   elements.prepend(cardRender);
   closePopup(popupCards);
   evt.target.reset();
+  buttonSubmitCard.disabled = true;
+  buttonSubmitCard.classList.add('popup__button_disabled');
+  // activeSubmitButton(buttonSubmitCard, config); НЕ ВИДИТ CONFIG
 };
 
 popupFormEditProfile.addEventListener('submit', submitEditProfileForm);
@@ -130,8 +136,7 @@ popupButtonCloseProfile.addEventListener ('click', function() {
 popupButtonCards.addEventListener('click', function() {
   openPopup(popupCards);
   popupFormCard.reset();
-  const buttonSubmit = document.querySelector('.popup__button');
-  buttonSubmit.setAttribute('disabled', true);
+  
 });
 popupButtonCardsClose.addEventListener ('click', function() {
   closePopup(popupCards);
