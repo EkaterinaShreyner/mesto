@@ -1,20 +1,3 @@
-enableValidation({
-  formSelector: '.popup__form',
-  inputSelector: '.popup__input',
-  submitButtonSelector: '.popup__button',
-  inactiveButtonClass: 'popup__button_disabled',
-  inputErrorClass: 'popup__input_type_error',
-  errorClass: 'popup__input-error_active'
-});
-
-// ОБЩАЯ ВАЛИДАЦИЯ ВСЕХ ФОРМ
-function enableValidation(config) {
-  const formList = Array.from(document.querySelectorAll(config.formSelector));
-  formList.forEach(function(formElement) {
-    setEventListener(formElement, config);
-  });
-}
-
 // ФУКНЦИЯ ПОКАЗА ОШИБКИ В ПОЛЕ ВВОДА
 function showInputError(formElement, input, errorMessage, config) {
   const errorElement = formElement.querySelector(`.${input.id}-error`);
@@ -80,11 +63,30 @@ function toggleButtonState(inputList, buttonSubmit, config) {
   }
 }
 
+const validationConfig = {
+  formSelector: '.popup__form',
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__button',
+  inactiveButtonClass: 'popup__button_disabled',
+  inputErrorClass: 'popup__input_type_error',
+  errorClass: 'popup__input-error_active'
+};
+
+// ОБЩАЯ ВАЛИДАЦИЯ ВСЕХ ФОРМ
+function enableValidation(config) {
+  const formList = Array.from(document.querySelectorAll(config.formSelector));
+  formList.forEach(function(formElement) {
+    setEventListener(formElement, config);
+  });
+}
+enableValidation(validationConfig);
 
 
-
-
-
-// formElement.addEventListener('reset', () => {
-//   disableButton(buttonSubmit, config)
+// enableValidation({
+//   formSelector: '.popup__form',
+//   inputSelector: '.popup__input',
+//   submitButtonSelector: '.popup__button',
+//   inactiveButtonClass: 'popup__button_disabled',
+//   inputErrorClass: 'popup__input_type_error',
+//   errorClass: 'popup__input-error_active'
 // });

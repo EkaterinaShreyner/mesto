@@ -112,9 +112,10 @@ function submitCardsForm(evt) {
   elements.prepend(cardRender);
   closePopup(popupCards);
   evt.target.reset();
-  buttonSubmitCard.disabled = true;
-  buttonSubmitCard.classList.add('popup__button_disabled');
-  // activeSubmitButton(buttonSubmitCard, config); НЕ ВИДИТ CONFIG
+  // buttonSubmitCard.disabled = true;
+  // buttonSubmitCard.classList.add('popup__button_disabled');
+  activeSubmitButton(buttonSubmitCard, validationConfig);
+  // НЕ ВИДИТ CONFIG
 };
 
 popupFormEditProfile.addEventListener('submit', submitEditProfileForm);
