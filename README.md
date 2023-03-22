@@ -16,4 +16,4 @@
   
 **Ссылка на GitHub Pages**  
     
-* [сайт Mesto](https://ekaterinashreyner.github.io/mesto/index.html)
+* [проект Mesto](https://ekaterinashreyner.github.io/mesto/index.html)
