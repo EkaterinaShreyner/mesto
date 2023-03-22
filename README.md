@@ -4,6 +4,7 @@
 ### Реализован с помощью
 * HTML
 * CSS
+* БЭМ
 * Flex
 * Grid layout
 * JavaScript
@@ -15,4 +16,4 @@
   
 **GitHub Pages**  
     
-* [Ссылка на GitHub Pages](https://ekaterinashreyner.github.io/mesto/index.html)
+* [Ссылка на GitHub Pages на сайт Mesto](https://ekaterinashreyner.github.io/mesto/index.html)
