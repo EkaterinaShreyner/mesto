@@ -4,6 +4,7 @@
 ### Реализован с помощью
 * HTML
 * CSS
+* БЭМ
 * Flex
 * Grid layout
 * JavaScript
