@@ -1,3 +1,5 @@
+import {Card} from './card.js';
+
 // для попапа 1
 const profileEditButton = document.querySelector('.profile__edit-button');
 const popupEditProfile = document.querySelector('.popup_edit-profile');
@@ -27,7 +29,6 @@ const popupInputCardLink = popupFormCard.querySelector('.popup__input_card_link'
 
 const buttonSubmitCard = document.querySelector('.submit-button-card');
 
-
 // ФУНКЦИЯ ЗАКРЫТИЯ ПОПАП НA OVERLAY И КЛАВИШУ ESC
 function closeOverlayAndEsc(evt) {
   if (evt.target.classList.contains('popup_opened')) {
@@ -53,7 +54,7 @@ function closePopup(popup) {
   popup.removeEventListener('mousedown', closeOverlayAndEsc);
 }
 
-// ФУКНЦИЯ РЕНДЕРИНГ КАРТОЧЕК
+/*// ФУКНЦИЯ РЕНДЕРИНГ КАРТОЧЕК
 function createCards(name, link) {
   const cardsTemplateClone = cardsTemplate.cloneNode(true);
   const cardImage = cardsTemplateClone.querySelector('.element__image');
@@ -79,7 +80,7 @@ function createCards(name, link) {
 
 initialCards.forEach(function(card) {
   elements.append(createCards(card.name, card.link));
-});
+});*/
 
 // ФУНКЦИЯ ОТПРАВКА ФОРМЫ 1
 function submitEditProfileForm (event) {
@@ -89,7 +90,7 @@ function submitEditProfileForm (event) {
   closePopup(popupEditProfile);
 };
 
-// ФУНКЦИЯ ОБРАБОТЧИК ЛАЙКА
+/*// ФУНКЦИЯ ОБРАБОТЧИК ЛАЙКА
 function handleLikeButton(evt) {
   const buttonLikeTarget = evt.target;
   buttonLikeTarget.classList.toggle('element__like_active');
@@ -99,7 +100,7 @@ function handleLikeButton(evt) {
 function handleDeleteCard(evt) {
   const buttonDeleteTarget = evt.target;
   buttonDeleteTarget.closest('.element').remove();
-};
+};*/
 
 // ФУНКЦИЯ СОЗДАНИЯ НОВОЙ КАРТОЧКИ
 function submitCardsForm(evt) {
@@ -123,13 +124,13 @@ popupFormCard.addEventListener('submit', submitCardsForm);
 
 // ПОПАП 1
 profileEditButton.addEventListener ('click', function() {
-  // popupEdit.classList.add('popup_opened');
+  // popupEditprofile.classList.add('popup_opened');
   openPopup(popupEditProfile);
   popupInputUserName.value = userNameTitle.textContent;
   popupInputUserInfo.value = userProfileSubtitle.textContent;
 });
 popupButtonCloseProfile.addEventListener ('click', function() {
-  // popupEdit.classList.remove('popup_opened');
+  // popupEditProfile.classList.remove('popup_opened');
   closePopup(popupEditProfile);
 });
 
