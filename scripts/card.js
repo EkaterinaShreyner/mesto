@@ -1,8 +1,8 @@
 import {initialCards} from './constants.js';
-// import {popupImage, imageFull, headingFull} from './index.js';
-// import { openPopup } from './index.js';
+import {popupImage, imageFull, headingFull} from './constants.js';
+import openPopup from './index.js';
 
-export class Card {
+export default class Card {
   constructor(data, templateSelector) {
     this._name = data.name;
     this._link = data.link
@@ -20,15 +20,12 @@ export class Card {
 
   createCard() {
     this._item = this._getTemplateCard();
-    // this._item.querySelector('.element__image').setAttribute('src', this._link);
-    // this._item.querySelector('.element__image').setAttribute('alt', this._name);
-
-    // this._cardElement = this._item.querySelector('.element__image');
-    // this._cardElement.src = this._link;
-    // this._cardElement.alt = this._name;
+    this._cardImage = this._item.querySelector('.element__image');
+    // this._cardImage.src = this._link;
+    // this._cardImage.alt = this._name;
+    this._cardImage.setAttribute('src', this._link);
+    this._cardImage.setAttribute('alt', this._name);
     this._item.querySelector('.element__title').textContent = this._name;
-    this._item.querySelector('.element__image').src = this._link;
-    this._item.querySelector('.element__image').alt = this._name;
     this._cardLikeButton = this._item.querySelector('.element__like');
     this._cardElementDelete = this._item.querySelector('.element__card-delete');
 
@@ -38,9 +35,10 @@ export class Card {
   }
   
   _handlePopupImage() {
-    imageFull.src = this._link;
-    headingFull.textContent = this._name;
     openPopup(popupImage);
+    imageFull.src = this._link;
+    imageFull.alt = this._name;
+    headingFull.textContent = this._name;
   }
 
   _handleLikeButton() {
@@ -49,7 +47,7 @@ export class Card {
 
   _handleDeleteCard() {
     this._cardElementDelete.closest('.element').remove();
-    // this._item.remove();
+    // this._item.remove(); аналог
   }
  
   _setEventListeners() {
@@ -59,7 +57,7 @@ export class Card {
     this._cardElementDelete.addEventListener('click', () => {
       this._handleDeleteCard();
     });
-    this._item.querySelector('.element__image').addEventListener('click', () => {
+    this._cardImage.addEventListener('click', () => {
       this._handlePopupImage();
     });
   }
@@ -70,9 +68,3 @@ initialCards.forEach((item) => {
   const renderCard = card.createCard();
   document.querySelector('.elements').append(renderCard);
 });
-
-
-
-// const card = new Card('ff', 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg', '.cards');
-// const renderCard = card.createCard();
-// document.querySelector('.elements').prepend(renderCard);
