@@ -46,8 +46,7 @@ export default class Card {
   }
 
   _handleDeleteCard() {
-    this._cardElementDelete.closest('.element').remove();
-    // this._item.remove(); аналог
+    this._item.remove();
   }
  
   _setEventListeners() {
@@ -63,8 +62,3 @@ export default class Card {
   }
 }
 
-initialCards.forEach((item) => {
-  const card = new Card(item, '.cards');
-  const renderCard = card.createCard();
-  document.querySelector('.elements').append(renderCard);
-});

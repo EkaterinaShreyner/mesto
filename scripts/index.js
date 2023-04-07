@@ -1,4 +1,5 @@
 import {
+  initialCards,
   validationConfig,
   popupEditProfile,
   popupCards,
@@ -18,20 +19,42 @@ import {
   popupFormCard,
   elements,
 } from './constants.js';
-import formValidator from './formValidator.js';
-import Card from './card.js';
+import FormValidator from './FormValidator.js';
+import Card from './Card.js';
 
-const profileValidate = new formValidator(validationConfig, 'form-edit-profile');
-const cardValidate = new formValidator(validationConfig, 'form-cards');
+const profileValidate = new FormValidator(validationConfig, 'form-edit-profile');
+const cardValidate = new FormValidator(validationConfig, 'form-cards');
 profileValidate.enableValidation();
 cardValidate.enableValidation();
 
-// ФУНКЦИЯ ЗАКРЫТИЯ ПОПАП НA OVERLAY И КЛАВИШУ ESC
-function closeOverlayAndEsc(evt) {
-  if (evt.target.classList.contains('popup_opened')) {
-    // evt.target.classList.remove('popup_opened');
-    closePopup(evt.target);
-  }
+// ФУНКЦИЯ СОЗДАНИЯ НОВОЙ КАРТОЧКИ 
+function createNewCard(cardElement) {
+  const card = new Card(cardElement, '.cards');
+  const cardRender = card.createCard();
+  elements.append(cardRender);
+};
+
+// ОТРИСОВКА ИСХОДНОГО МАССИВА
+initialCards.forEach((item) => {
+  // const card = new Card(item, '.cards');
+  // const cardRender = card.createCard();
+  // elements.append(cardRender);
+  createNewCard(item);
+});
+
+// ФУНКЦИЯ ЗАКРЫТИЯ ПОПАП НA OVERLAY
+function closePopupByOverlay() {
+  const popupList = Array.from(document.querySelectorAll('.popup'));
+  popupList.forEach((popup) => {
+    popup.addEventListener('mousedown', (evt) => {
+      if (evt.target.classList.contains('popup_opened'));
+      closePopup(evt.target);
+    })
+  });
+}
+
+// ФУНКЦИЯ ЗАКРЫТИЯ ПОПАП НА КЛАВИШУ ESC
+function closePopupByEsc(evt) {
   if (evt.key === 'Escape') {
     const popupOpened = document.querySelector('.popup_opened')
     closePopup(popupOpened);
@@ -41,14 +64,14 @@ function closeOverlayAndEsc(evt) {
 // ФУНКЦИЯ ОТКРЫТИЯ ПОПАПОВ
 export default function openPopup(popup) {
   popup.classList.add('popup_opened');
-  document.addEventListener('keydown', closeOverlayAndEsc);
-  popup.addEventListener('mousedown', closeOverlayAndEsc);
+  document.addEventListener('keydown', closePopupByEsc);
+  popup.addEventListener('mousedown', closePopupByOverlay);
 }
 // ФУНКЦИЯ ЗАКРЫТИЯ ПОПАПОВ
 function closePopup(popup) {
   popup.classList.remove('popup_opened');
-  document.removeEventListener('keydown', closeOverlayAndEsc);
-  popup.removeEventListener('mousedown', closeOverlayAndEsc);
+  document.removeEventListener('keydown', closePopupByEsc);
+  popup.addEventListener('mousedown', closePopupByOverlay);
 }
 
 // ФУНКЦИЯ ОТПРАВКА ФОРМЫ 1
@@ -59,24 +82,24 @@ function submitEditProfileForm (event) {
   closePopup(popupEditProfile);
 };
 
-// ФУНКЦИЯ СОЗДАНИЯ НОВОЙ КАРТОЧКИ
+// ФУНКЦИЯ СОЗДАНИЯ НОВОЙ КАРТОЧКИ ПОЛЬЗОВАТЕЛЕМ
 function submitCardsForm(evt) {
   evt.preventDefault();
   const newCard = {
     name: popupInputCardName.value,
     link: popupInputCardLink.value
   };
-  // const cardRender = createCards(newCard.name, newCard.link);
-  const card = new Card(newCard, '.cards');
-  const cardRender = card.createCard();
-
-  elements.prepend(cardRender);
+  // const card = new Card(newCard, '.cards');
+  // const cardRender = card.createCard();
+  // elements.prepend(cardRender);
+  createNewCard(newCard);
+  
   closePopup(popupCards);
   evt.target.reset();
   // buttonSubmitCard.disabled = true;
   // buttonSubmitCard.classList.add('popup__button_disabled');
   // _activeSubmitButton(buttonSubmitCard, validationConfig);
-  cardValidate.activeSubmitButton();
+  cardValidate.disableSubmitButton();
 };
 
 popupFormEditProfile.addEventListener('submit', submitEditProfileForm);
