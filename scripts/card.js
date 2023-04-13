@@ -1,6 +1,6 @@
 import {initialCards} from './constants.js';
 import {popupImage, imageFull, headingFull} from './constants.js';
-import openPopup from './index.js';
+// import openPopup from './index.js';
 
 export default class Card {
   constructor(data, templateSelector) {
