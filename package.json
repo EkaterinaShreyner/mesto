@@ -1,0 +1,14 @@
+{
+  "name": "mesto",
+  "version": "0.0.1",
+  "description": "Проект, представляющий собой одностроничную интерактивную страницу. На странице пользоватаели могут добавлять фотографии, удалять их и ставить лайки.  ### Реализован с помощью * HTML * CSS * БЭМ * Flex * Grid layout * JavaScript * Figma",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Ekaterina Shreyner",
+  "license": "ISC",
+  "devDependencies": {
+    "webpack": "^5.80.0"
+  }
+}
