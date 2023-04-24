@@ -10,6 +10,9 @@ import {
   popupInputCardName,
   popupInputCardLink,
 } from '../components/constants.js';
+// import pushkin from '../image/pushkin.png';
+// const pushkin = new URL('../image/pushkin.png', import.meta.url);
+
 import FormValidator from '../components/FormValidator.js';
 import Card from '../components/Cards.js';
 import Section from '../components/Section.js'

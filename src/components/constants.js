@@ -1,33 +1,47 @@
+import pushkin from '../image/pushkin.png';
+import ges from '../image/ges2.png';
+import hermitage from '../image/Hermitage.png';
+import russkiy from '../image/Russkiy.png';
+import garage from '../image/garage.png';
+import dvorEkaterina from '../image/dvorEkaterina.jpeg';
+
+
 export const initialCards = [
   {
     name: 'ГМИИ имени Пушкина',
     alt: 'ГМИИ имени Пушкина',
-    link: './image/pushkin.png'
+    // link: './image/pushkin.png'
+    link: pushkin
   },
   {
     name: 'ГЭС 2',
     alt: 'ГЭС 2',
-    link: './image/ges2.png'
+    // link: './image/ges2.png'
+    link: ges
   },
   {
     name: 'Эрмитаж',
     alt: 'Эрмитаж',
-    link: './image/Hermitage.png'
+    // link: './image/Hermitage.png'
+    link: hermitage
   },
   {
     name: 'Русский Музей',
     alt: 'Русский музей',
-    link: './image/Russkiy.png'
+    // link: './image/Russkiy.png'
+    link: russkiy
   },
   {
     name: 'Гараж',
     alt: 'Гараж',
-    link: './image/garage.png'
+    // link: './image/garage.png'
+    link: garage
   },
   {
     name: 'Екатериниский Дворец',
     alt: 'Екатериниский Дворец',
-    link: './image/dvorEkaterina.jpeg'
+    // link: './image/dvorEkaterina.jpeg'
+    link: dvorEkaterina
   }
 ];
 
