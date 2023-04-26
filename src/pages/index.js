@@ -7,14 +7,10 @@ import {
   cardAddButton,
   popupInputUserName,
   popupInputUserInfo,
-  popupInputCardName,
-  popupInputCardLink,
-} from '../components/constants.js';
-// import pushkin from '../image/pushkin.png';
-// const pushkin = new URL('../image/pushkin.png', import.meta.url);
+} from '../utils/constants.js';
 
 import FormValidator from '../components/FormValidator.js';
-import Card from '../components/Cards.js';
+import Card from '../components/Card.js';
 import Section from '../components/Section.js'
 import UserInfo from '../components/UserInfo.js';
 import PopupWithForm from '../components/PopupWithForm.js';
@@ -38,13 +34,12 @@ function handleSubmitProfileForm(formValues) {
 //                СОЗДАНИЕ КАРТОЧКИ 
 
 // функция сабмита формы "Создание карточки"
-function handleSubmitCardsForm() {
-  const newCard = {
-    name: popupInputCardName.value,
-    link: popupInputCardLink.value
+function handleSubmitCardsForm(formValues) {
+  const cardItem = {
+    name: formValues.title,
+    link: formValues.link
   };
-  sectionCards.addNewItem(createNewCard(newCard));
-  cardValidate.disableSubmitButton(); 
+  sectionCards.addNewItem(createNewCard(cardItem));
 }
 
 // функция новой карточки
@@ -89,5 +84,6 @@ popupCardsClass.setEventListeners();
 popupImageClass.setEventListeners(); 
 profileEditButton.addEventListener ('click', handleOpenProfileForm);
 cardAddButton.addEventListener('click', function() {
-  popupCardsClass.open()
+  cardValidate.disableSubmitButton();
+  popupCardsClass.open();
 });

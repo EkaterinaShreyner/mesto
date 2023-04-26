@@ -61,5 +61,4 @@ export const popupFormEditProfile = document.forms['form-edit-profile'];
 export const popupFormCard = document.forms['form-cards'];
 export const popupInputUserName = popupFormEditProfile.querySelector('.popup__input_type_name');
 export const popupInputUserInfo = popupFormEditProfile.querySelector('.popup__input_type_info');
-export const popupInputCardName = popupFormCard.querySelector('.popup__input_card_name');
-export const popupInputCardLink = popupFormCard.querySelector('.popup__input_card_link');
+

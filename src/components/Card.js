@@ -1,6 +1,5 @@
 export default class Card {
   constructor(data, templateSelector, {handleCardClick}) {
-  // constructor(data, templateSelector) {
     this._name = data.name;
     this._link = data.link;
     this._templateSelector = templateSelector;
@@ -19,10 +18,10 @@ export default class Card {
   createCard() {
     this._item = this._getTemplateCard();
     this._cardImage = this._item.querySelector('.element__image');
-    // this._cardImage.src = this._link;
-    // this._cardImage.alt = this._name;
-    this._cardImage.setAttribute('src', this._link);
-    this._cardImage.setAttribute('alt', this._name);
+    this._cardImage.src = this._link;
+    this._cardImage.alt = this._name;
+    // this._cardImage.setAttribute('src', this._link);
+    // this._cardImage.setAttribute('alt', this._name);
     this._item.querySelector('.element__title').textContent = this._name;
     this._cardLikeButton = this._item.querySelector('.element__like');
     this._cardElementDelete = this._item.querySelector('.element__card-delete');

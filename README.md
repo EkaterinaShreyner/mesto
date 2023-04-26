@@ -8,6 +8,8 @@
 * Flex
 * Grid layout
 * JavaScript
+* ООП
+* Webpack
 * Figma
 
 **Figma**
