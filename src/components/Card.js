@@ -23,6 +23,8 @@ export default class Card {
     // this._cardImage.setAttribute('src', this._link);
     // this._cardImage.setAttribute('alt', this._name);
     this._item.querySelector('.element__title').textContent = this._name;
+    // this._cardTitle = this._item.querySelector('.element__title');
+    // this._cardTitle.textContent = this._name;
     this._cardLikeButton = this._item.querySelector('.element__like');
     this._cardElementDelete = this._item.querySelector('.element__card-delete');
 

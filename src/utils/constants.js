@@ -56,9 +56,12 @@ export const validationConfig = {
 
 export const profileEditButton = document.querySelector('.profile__edit-button');
 export const cardAddButton = document.querySelector('.profile__add-button');
+export const avatarAddButton = document.querySelector('.profile__pen');
 
 export const popupFormEditProfile = document.forms['form-edit-profile'];
 export const popupFormCard = document.forms['form-cards'];
+export const popupFormAvatar = document.forms['form-avatar'];
 export const popupInputUserName = popupFormEditProfile.querySelector('.popup__input_type_name');
 export const popupInputUserInfo = popupFormEditProfile.querySelector('.popup__input_type_info');
+export const popupInputUserAvatar = popupFormAvatar.querySelector('.popup__input_type_avatar-link');
 

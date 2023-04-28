@@ -3,6 +3,12 @@
   height: 120px;
   border-radius: 50%;
   margin-right: 30px;
+  transition: opacity 0.5s linear;
+  z-index: 0;
+}
+
+.profile__avatar:hover {
+  opacity: 0.2;
 }
 
 @media screen and (max-width: 990px) {
