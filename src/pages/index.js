@@ -8,7 +8,7 @@ import {
   popupInputUserName,
   popupInputUserInfo,
   popupInputUserAvatar,
-  avatarAddButton,
+  avatarAddButton, 
 } from '../utils/constants.js';
 
 import FormValidator from '../components/FormValidator.js';
@@ -23,59 +23,52 @@ import Api from '../components/Api';
 // import { data } from 'autoprefixer';
 
 const api = new Api({
-  url: 'https://mesto.nomoreparties.co/v1/cohort-65',
+  url: 'https://nomoreparties.co/v1/cohort-65',
   headers: {
     authorization: 'eb88a784-5abe-4513-8117-377adafa9ddc',
     'Content-Type': 'application/json'
   }
 });
 
-
-
-function getProfileInfo(){
-fetch('https://mesto.nomoreparties.co/v1/cohort-65/users/me', {
-  headers: {
-    authorization: 'eb88a784-5abe-4513-8117-377adafa9ddc'
-  }
-})
-  .then(res => res.json())
-  .then((res) => {
-    console.log(res);
-    // container.insertAdjacentHTML('afterbegin', markup);
-  });
-}
-getProfileInfo();
-
-//  отправка данных профиля
-  fetch('https://mesto.nomoreparties.co/v1/cohort-65/users/me', {
-  method: 'PATCH',
-  headers: {
-    authorization: 'eb88a784-5abe-4513-8117-377adafa9ddc',
-    'Content-Type': 'application/json'
-  },
-  body: JSON.stringify({
-    name: 'Екатерина Шрейнер',
-    about: 'люблю искусство',
-    avatar: 'https://pictures.s3.yandex.net/frontend-developer/common/ava.jpg'
-  })
-});
-
-
+// //  отправка данных профиля
+//   fetch('https://mesto.nomoreparties.co/v1/cohort-65/users/me', {
+//   method: 'PATCH',
+//   headers: {
+//     authorization: 'eb88a784-5abe-4513-8117-377adafa9ddc',
+//     'Content-Type': 'application/json'
+//   },
+//   body: JSON.stringify({
+//     name: 'Jacques Cousteau',
+//     about: 'Sailor, researcher',
+//     avatar: 'https://pictures.s3.yandex.net/frontend-developer/common/ava.jpg'
+//   })
+// });
 
 //               РЕДАКТИРОВАНИЕ ПРОФИЛЯ 
+
+// получить данные профиля с сервера
+api.getUserInfo()
+  .then((dataUser) => {
+    userInfo.setUserInfo(dataUser)
+  })
+  .catch((err) => {
+    console.error(`Ошибка ${err}`)
+  })
 
 // функция открытия формы "Редактировать профиль"
 function handleOpenProfileForm() {
   popupEditProfileClass.open();
   const profileInfo = userInfo.getUserInfo();
   popupInputUserName.value = profileInfo.name;
-  popupInputUserInfo.value = profileInfo.info;
+  popupInputUserInfo.value = profileInfo.about;
 }
 
 // функция сабмита формы "Редактировать профиль"
 function handleSubmitProfileForm(formValues) {
-  // console.log(userInfo);
-  userInfo.setUserInfo(formValues);
+  api.patchUserInfo(formValues)
+    .then((userData) => {
+      userInfo.setUserInfo(userData)
+    })
 }
 
 // функция открытия формы "Редактировать аватар"
