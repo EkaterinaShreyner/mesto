@@ -1,7 +1,6 @@
 import './index.css';
 
 import {
-  initialCards,
   validationConfig,
   profileEditButton,
   cardAddButton,
@@ -17,10 +16,10 @@ import Section from '../components/Section.js'
 import UserInfo from '../components/UserInfo.js';
 import PopupWithForm from '../components/PopupWithForm.js';
 import PopupWithImage from '../components/PopupWithImage.js';
+import popupConfirmForm from '../components/PopupConfirm.js';
 import Api from '../components/Api';
-// import { reject, resolve } from 'core-js/fn/promise';
-// import { reverse } from 'core-js/core/array';
-// import { data } from 'autoprefixer';
+
+let userId;
 
 const api = new Api({
   url: 'https://nomoreparties.co/v1/cohort-65',
@@ -30,26 +29,14 @@ const api = new Api({
   }
 });
 
-// //  отправка данных профиля
-//   fetch('https://mesto.nomoreparties.co/v1/cohort-65/users/me', {
-//   method: 'PATCH',
-//   headers: {
-//     authorization: 'eb88a784-5abe-4513-8117-377adafa9ddc',
-//     'Content-Type': 'application/json'
-//   },
-//   body: JSON.stringify({
-//     name: 'Jacques Cousteau',
-//     about: 'Sailor, researcher',
-//     avatar: 'https://pictures.s3.yandex.net/frontend-developer/common/ava.jpg'
-//   })
-// });
-
 //               РЕДАКТИРОВАНИЕ ПРОФИЛЯ 
 
 // получить данные профиля с сервера
 api.getUserInfo()
   .then((dataUser) => {
+    userId = dataUser._id;
     userInfo.setUserInfo(dataUser)
+    console.log(dataUser._id)
   })
   .catch((err) => {
     console.error(`Ошибка ${err}`)
@@ -65,65 +52,115 @@ function handleOpenProfileForm() {
 
 // функция сабмита формы "Редактировать профиль"
 function handleSubmitProfileForm(formValues) {
+  popupEditProfileClass.renderLoading(true)
   api.patchUserInfo(formValues)
     .then((userData) => {
+      // popupEditProfileClass.renderLoading(true)
       userInfo.setUserInfo(userData)
+    })
+    .catch((err) => {
+      console.error(`Ошибка при отправке данных о пользователе: ${err}`)
+    })
+    .finally(() => {
+      popupEditProfileClass.renderLoading(false)
     })
 }
 
-// функция открытия формы "Редактировать аватар"
-function handleOpenAvatarForm() {
-  popupAvatarClass.open();
-  // const profileInfo = userInfo.getUserInfo();
-  // popupInputUserName.value = profileInfo.name;
-  // popupInputUserInfo.value = profileInfo.info;
-  // popupInputUserAvatar.value = profileInfo.avatar;
-  console.log('click');
-}
-
 // функция сабмита формы "Редактировать аватар"
-function handleSubmitAvatarForm() {
-  console.log('submit');
+function handleSubmitAvatarForm(formValues) {
+  popupAvatarClass.renderLoading(true);
+  api.patchAvatar(formValues)
+    .then((userAvatar) => {
+      console.log(userAvatar)
+      userInfo.setUserInfo(userAvatar)
+    })
+    .catch((err) => {
+      console.error(`Ошибка загрузки аватара пользователя: ${err}`)
+    })
+    .finally(() => {
+      popupAvatarClass.renderLoading(false)
+    })
 }
 
 //                 КАРТОЧКИ 
 
-api.getCards()
-  .then((cards) => {
-    sectionCards.renderItems(cards)
-  })
-  .catch((err) => {
-    console.error(`Ошибка: ${err}`);
-  })
-
 // функция новой карточки
 const createNewCard = (cards) => {
-  const card = new Card(cards, '.cards', 
-  {handleCardClick: () => {popupImageClass.open()}
+  const card = new Card(cards, '.cards', userId, {
+    
+    handleCardClick: () => {
+      popupImageClass.open(cards)
+    },
+
+    handleDeleteCard: () => {
+      console.log(card);
+      popupConfirmClass.open(card);
+    }
   });
   const cardRender = card.createCard();
   return cardRender;
 };
+
 
 // отрисовка массива карточек
 const sectionCards = new Section({
   renderer: (cards) => createNewCard(cards)
 }, '.elements');
 
-// const sectionCards = new Section({
-//   renderer: (cards) => {
-//     return createNewCard(cards)
-//   }
-// }, '.elements');
+api.getCards()
+  .then((cards) => {
+    // userId = dataUser._id;
+    sectionCards.renderItems(cards)
+    console.log(cards)
+  })
+  .catch((err) => {
+    console.error(`Ошибка: ${err}`);
+  })
 
-// функция сабмита формы "Создание карточки"
+// функция сабмита формы "Создание карточки
 function handleSubmitCardsForm(formValues) {
-  const cardItem = {
-    name: formValues.title,
-    link: formValues.link
-  };
-  sectionCards.addNewItem(createNewCard(cardItem));
+  popupCardsClass.renderLoading(true)
+  api.postNewCard(formValues)
+    .then((dataCard) => {
+      console.log(dataCard)
+      // console.log(dataCard.likes)
+      sectionCards.addNewItem(dataCard)
+    })
+    .catch((err) => {
+      console.error(`Ошибка добавления новой карточки: ${err}`)
+    })
+    .finally(() => {
+      popupCardsClass.renderLoading(false)
+    })
 }
+
+// функция сабмита формы удаление карточки 
+const handleSubmitConfirmForm = (card) => {
+  // console.log(card._cardId);
+  api.deleteCard(card._cardId)
+    .then(() => {
+      card.deleteCard();
+      popupConfirmClass.close();
+    })
+    .catch((err) => {
+      console.error(`Ошибка удаления карточки: ${err}`)
+    })
+}
+
+// api.putLike(cardId)
+//   .then((res) => {
+//     console.log(res)
+//   })
+//   .catch((err) => {
+//     console.error(`Ошибка: ${err}`)
+//   })
+// api.deleteLike(cardId)
+//   .then((res) => {
+//     console.log(res)
+//   })
+//   .catch((err) => {
+//     console.error(`Ошибка: ${err}`)
+//   })
 
 //               ЭКЗЕМПЛЯРЫ КЛАССОВ ПОПАП  
 
@@ -136,6 +173,7 @@ const popupEditProfileClass = new PopupWithForm('.popup_edit-profile', handleSub
 const popupCardsClass = new PopupWithForm('.popup_cards', handleSubmitCardsForm);
 const popupImageClass = new PopupWithImage('.popup_image');
 const popupAvatarClass = new PopupWithForm('.popup_avatar', handleSubmitAvatarForm);
+const popupConfirmClass = new popupConfirmForm ('.popup_confirm', handleSubmitConfirmForm);
 
 //                 ВАЛИДАЦИЯ ФОРМ 
 
@@ -152,9 +190,13 @@ popupEditProfileClass.setEventListeners();
 popupCardsClass.setEventListeners();
 popupImageClass.setEventListeners();
 popupAvatarClass.setEventListeners();
-avatarAddButton.addEventListener ('click', handleOpenAvatarForm);
+popupConfirmClass.setEventListeners();
 profileEditButton.addEventListener ('click', handleOpenProfileForm);
-cardAddButton.addEventListener('click', function() {
+avatarAddButton.addEventListener ('click', () => {
+  avatarValidate.disableSubmitButton();
+  popupAvatarClass.open()
+});
+cardAddButton.addEventListener('click', () => {
   cardValidate.disableSubmitButton();
   popupCardsClass.open();
 });

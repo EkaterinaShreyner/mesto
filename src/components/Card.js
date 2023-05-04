@@ -1,9 +1,14 @@
 export default class Card {
-  constructor(data, templateSelector, {handleCardClick}) {
+  constructor(data, templateSelector, userId, {handleCardClick, handleDeleteCard}) {
     this._name = data.name;
     this._link = data.link;
+    this._cardId = data._id; //id карточки
+    this._likes = data.likes; // св-во карточки, содержащее массив пользователей поставивших лайк
+    this._ownerId = data.owner._id; // id пользователя 
+    this._userId = userId; // мой id
     this._templateSelector = templateSelector;
     this._handleCardClick = handleCardClick;
+    this._handleDeleteCard = handleDeleteCard;
   }
 
   _getTemplateCard() {
@@ -27,6 +32,13 @@ export default class Card {
     // this._cardTitle.textContent = this._name;
     this._cardLikeButton = this._item.querySelector('.element__like');
     this._cardElementDelete = this._item.querySelector('.element__card-delete');
+    this._cardLikes = this._item.querySelector('.element__likes');
+    this._cardLikes.textContent = this._likes.length;
+
+    // установка корзины на моих карточках
+    if (this._ownerId != this._userId) {
+      this._cardElementDelete.remove()
+    }
 
     this._setEventListeners();
    
@@ -37,9 +49,14 @@ export default class Card {
     this._cardLikeButton.classList.toggle('element__like_active');
   }
 
-  _handleDeleteCard() {
+  // _handleDeleteCard() {
+  //   this._item.remove();
+  // }
+
+  deleteCard() {
     this._item.remove();
   }
+
  
   _setEventListeners = () => {
     this._cardLikeButton.addEventListener('click', () => {

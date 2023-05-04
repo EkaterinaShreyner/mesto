@@ -40,7 +40,10 @@
             <img class="element__image">
             <div class="element__line">
               <h2 class="element__title"></h2>
-              <button class="element__like" type="button" aria-label="Нравится"></button>
+              <div class="element__section-like">
+                <button class="element__like" type="button" aria-label="Нравится"></button>
+                <p class="element__likes"></p>
+              </div>
             </div>
           </div>
         </template>
@@ -85,7 +88,7 @@
           <h2 class="popup__title">Новое место</h2>
           <input
           class="popup__input popup__input_card_name"
-          name="title"
+          name="name"
           type="text"
           placeholder="Название"
           minlength="2"
@@ -130,7 +133,7 @@
           <h2 class="popup__title">Обновить аватар</h2>
           <input
           class="popup__input popup__input_type_avatar-link"
-          name="avatar-link"
+          name="avatar"
           type="url"
           placeholder="Ссылка на аватар"
           required
