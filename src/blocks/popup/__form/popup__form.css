@@ -5,7 +5,8 @@
   margin-right: -50%;
   transform: translate(-50%, 0); */
   width: 430px;
-  min-height: 330px;
+  /* min-height: 330px; */
+  padding-bottom: 36px;
   background: #ffffff;
   border-radius: 10px;
 }
@@ -13,6 +14,6 @@
 @media screen and (max-width: 645px) {
   .popup__form {
     width: 282px;
-    min-height: 322px;
+    /* min-height: 322px; */
   }
 }

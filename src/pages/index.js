@@ -95,8 +95,33 @@ const createNewCard = (cards) => {
     handleDeleteCard: () => {
       console.log(card);
       popupConfirmClass.open(card);
+    },
+
+    handleLikeButton: (card) => {
+      console.log(card);
+      if (!card.checkUserLike()) {
+        api.putLike(card.cardId)
+          .then((likes) => {
+            // console.log(card)
+            card.toggleLikeButton()
+            card.sumLikes(likes)
+          })
+          .catch((err) => {
+            console.error(`Ошибка установки лайка: ${err}`)
+            })
+      } else {
+        api.deleteLike(card.cardId)
+          .then((likes) => {
+            card.toggleLikeButton()
+            card.sumLikes(likes)
+          })
+          .catch((err) => {
+            console.error(`Ошибка установки лайка: ${err}`)
+            })
+      }
     }
   });
+
   const cardRender = card.createCard();
   return cardRender;
 };
@@ -109,7 +134,6 @@ const sectionCards = new Section({
 
 api.getCards()
   .then((cards) => {
-    // userId = dataUser._id;
     sectionCards.renderItems(cards)
     console.log(cards)
   })
@@ -137,7 +161,7 @@ function handleSubmitCardsForm(formValues) {
 // функция сабмита формы удаление карточки 
 const handleSubmitConfirmForm = (card) => {
   // console.log(card._cardId);
-  api.deleteCard(card._cardId)
+  api.deleteCard(card.cardId)
     .then(() => {
       card.deleteCard();
       popupConfirmClass.close();
@@ -146,21 +170,6 @@ const handleSubmitConfirmForm = (card) => {
       console.error(`Ошибка удаления карточки: ${err}`)
     })
 }
-
-// api.putLike(cardId)
-//   .then((res) => {
-//     console.log(res)
-//   })
-//   .catch((err) => {
-//     console.error(`Ошибка: ${err}`)
-//   })
-// api.deleteLike(cardId)
-//   .then((res) => {
-//     console.log(res)
-//   })
-//   .catch((err) => {
-//     console.error(`Ошибка: ${err}`)
-//   })
 
 //               ЭКЗЕМПЛЯРЫ КЛАССОВ ПОПАП  
 

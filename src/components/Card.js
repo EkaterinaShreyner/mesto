@@ -1,14 +1,15 @@
 export default class Card {
-  constructor(data, templateSelector, userId, {handleCardClick, handleDeleteCard}) {
+  constructor(data, templateSelector, userId, {handleCardClick, handleDeleteCard, handleLikeButton}) {
     this._name = data.name;
     this._link = data.link;
-    this._cardId = data._id; //id карточки
+    this.cardId = data._id; //id карточки
     this._likes = data.likes; // св-во карточки, содержащее массив пользователей поставивших лайк
     this._ownerId = data.owner._id; // id пользователя 
     this._userId = userId; // мой id
     this._templateSelector = templateSelector;
     this._handleCardClick = handleCardClick;
     this._handleDeleteCard = handleDeleteCard;
+    this._handleLikeButton = handleLikeButton;
   }
 
   _getTemplateCard() {
@@ -28,8 +29,6 @@ export default class Card {
     // this._cardImage.setAttribute('src', this._link);
     // this._cardImage.setAttribute('alt', this._name);
     this._item.querySelector('.element__title').textContent = this._name;
-    // this._cardTitle = this._item.querySelector('.element__title');
-    // this._cardTitle.textContent = this._name;
     this._cardLikeButton = this._item.querySelector('.element__like');
     this._cardElementDelete = this._item.querySelector('.element__card-delete');
     this._cardLikes = this._item.querySelector('.element__likes');
@@ -45,22 +44,28 @@ export default class Card {
     return this._item;
   }
 
-  _handleLikeButton() {
-    this._cardLikeButton.classList.toggle('element__like_active');
+  // проверка лайка
+  checkUserLike() {
+    return this._likes.some((likes) => likes._id === this._userId);
+  } 
+
+  sumLikes(likes) {
+    this._cardLikes.textContent = likes.likes.length;
+    this._likes = likes.likes;
   }
 
-  // _handleDeleteCard() {
-  //   this._item.remove();
-  // }
+  toggleLikeButton() {
+    this._cardLikeButton.classList.toggle('element__like_active');
+  }
 
   deleteCard() {
     this._item.remove();
   }
 
- 
   _setEventListeners = () => {
     this._cardLikeButton.addEventListener('click', () => {
-      this._handleLikeButton();
+      // this._handleLikeButton(this._cardId);
+      this._handleLikeButton(this);
     });
     this._cardElementDelete.addEventListener('click', () => {
       this._handleDeleteCard();
