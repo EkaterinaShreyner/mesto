@@ -39,6 +39,12 @@ export default class Card {
       this._cardElementDelete.remove()
     }
 
+    if (this.checkUserLike()) {
+      this.like()
+    } else {
+      this.removeLike()
+    }
+
     this._setEventListeners();
    
     return this._item;
@@ -54,8 +60,12 @@ export default class Card {
     this._likes = likes.likes;
   }
 
-  toggleLikeButton() {
-    this._cardLikeButton.classList.toggle('element__like_active');
+  like() {
+    this._cardLikeButton.classList.add('element__like_active', true);
+  }
+
+  removeLike() {
+    this._cardLikeButton.classList.remove('element__like_active', true);
   }
 
   deleteCard() {

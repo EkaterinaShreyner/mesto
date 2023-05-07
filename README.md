@@ -8,8 +8,9 @@
 * Flex
 * Grid layout
 * JavaScript
-* ООП
+* Объектно-ориентированное программирование (ООП)
 * Webpack
+* API
 * Figma
 
 **Figma**

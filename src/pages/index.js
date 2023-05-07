@@ -29,18 +29,20 @@ const api = new Api({
   }
 });
 
-//               РЕДАКТИРОВАНИЕ ПРОФИЛЯ 
-
-// получить данные профиля с сервера
-api.getUserInfo()
-  .then((dataUser) => {
-    userId = dataUser._id;
+// Получить данные профиля с сервера, массив объектов с карточками и  отрисовка массива карточек
+Promise.all([api.getUserInfo(), api.getCards()])
+  .then(([dataUser, cards]) => {
+    userId = dataUser._id
     userInfo.setUserInfo(dataUser)
-    console.log(dataUser._id)
+    sectionCards.renderItems(cards)
+    console.log(dataUser._id, cards)
   })
   .catch((err) => {
     console.error(`Ошибка ${err}`)
   })
+
+//               РЕДАКТИРОВАНИЕ ПРОФИЛЯ 
+
 
 // функция открытия формы "Редактировать профиль"
 function handleOpenProfileForm() {
@@ -57,6 +59,7 @@ function handleSubmitProfileForm(formValues) {
     .then((userData) => {
       // popupEditProfileClass.renderLoading(true)
       userInfo.setUserInfo(userData)
+      popupEditProfileClass.close()
     })
     .catch((err) => {
       console.error(`Ошибка при отправке данных о пользователе: ${err}`)
@@ -73,6 +76,7 @@ function handleSubmitAvatarForm(formValues) {
     .then((userAvatar) => {
       console.log(userAvatar)
       userInfo.setUserInfo(userAvatar)
+      popupAvatarClass.close()
     })
     .catch((err) => {
       console.error(`Ошибка загрузки аватара пользователя: ${err}`)
@@ -102,8 +106,7 @@ const createNewCard = (cards) => {
       if (!card.checkUserLike()) {
         api.putLike(card.cardId)
           .then((likes) => {
-            // console.log(card)
-            card.toggleLikeButton()
+            card.like();
             card.sumLikes(likes)
           })
           .catch((err) => {
@@ -112,7 +115,7 @@ const createNewCard = (cards) => {
       } else {
         api.deleteLike(card.cardId)
           .then((likes) => {
-            card.toggleLikeButton()
+            card.removeLike()
             card.sumLikes(likes)
           })
           .catch((err) => {
@@ -127,19 +130,11 @@ const createNewCard = (cards) => {
 };
 
 
-// отрисовка массива карточек
+// класс для перебора массива данных и вставка элементов в разметку
 const sectionCards = new Section({
   renderer: (cards) => createNewCard(cards)
 }, '.elements');
 
-api.getCards()
-  .then((cards) => {
-    sectionCards.renderItems(cards)
-    console.log(cards)
-  })
-  .catch((err) => {
-    console.error(`Ошибка: ${err}`);
-  })
 
 // функция сабмита формы "Создание карточки
 function handleSubmitCardsForm(formValues) {
@@ -149,6 +144,7 @@ function handleSubmitCardsForm(formValues) {
       console.log(dataCard)
       // console.log(dataCard.likes)
       sectionCards.addNewItem(dataCard)
+      popupCardsClass.close()
     })
     .catch((err) => {
       console.error(`Ошибка добавления новой карточки: ${err}`)
